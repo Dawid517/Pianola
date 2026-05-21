@@ -1,0 +1,55 @@
+name: Enclosure Validation
+
+on:
+  pull_request:
+    paths:
+      - 'enclosure/**'
+
+jobs:
+  validate-enclosure:
+    name: Validate Enclosure Changes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for Corresponding Files
+        run: |
+          # Get list of changed files in this PR
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          
+          # Find all CAD files changed
+          CAD_FILES=$(echo "$CHANGED_FILES" | grep -E "enclosure/CAD/.*\.(step|stp|f3d|sldprt|sldasm|dwg|dxf|3dm|ipt|iam|prt|asm|blend)$" || true)
+          
+          if [ -z "$CAD_FILES" ]; then
+            if echo "$CHANGED_FILES" | grep -q "enclosure/"; then
+              echo "::warning::Changes detected in enclosure/ folder, but no CAD source files found."
+            fi
+            exit 0
+          fi
+          
+          ERROR=0
+          for CAD in $CAD_FILES; do
+            # Extract base name without path and extension
+            BASE_NAME=$(basename "$CAD" | sed 's/\.[^.]*$//')
+            echo "Validating CAD file: $CAD (Base name: $BASE_NAME)"
+            
+            # Check for corresponding STL
+            if ! echo "$CHANGED_FILES" | grep -q "enclosure/STL/$BASE_NAME\.stl"; then
+              echo "::error file=$CAD::Missing corresponding STL file: enclosure/STL/$BASE_NAME.stl"
+              ERROR=1
+            fi
+            
+            # Check for corresponding Render (supports multiple extensions)
+            if ! echo "$CHANGED_FILES" | grep -E -q "enclosure/Renders/$BASE_NAME\.(png|jpg|jpeg|webp|gif)"; then
+              echo "::error file=$CAD::Missing corresponding Render file in enclosure/Renders/ for $BASE_NAME"
+              ERROR=1
+            fi
+          done
+          
+          if [ $ERROR -eq 1 ]; then
+            exit 1
+          fi
+          echo "All CAD changes have corresponding STL and Render files."
