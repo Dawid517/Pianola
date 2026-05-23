@@ -6,7 +6,7 @@ This directory contains the firmware/software source code.
 
 *List prerequisites to build project*
 - [Tool 1] (e.g., CMake 3.20+)
-- [Tool 2] (e.g., arm-none-eabi-gcc)
+- [Tool 2] (e.g., arm-none-eabi-gcc / g++ / clang++)
 
 ## Building
 
