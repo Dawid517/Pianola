@@ -37,8 +37,8 @@ jobs:
             echo "Validating CAD file: $CAD (Base name: $BASE_NAME)"
             
             # Check for corresponding STL
-            if ! echo "$CHANGED_FILES" | grep -q "enclosure/STL/$BASE_NAME\.stl"; then
-              echo "::error file=$CAD::Missing corresponding STL file: enclosure/STL/$BASE_NAME.stl"
+            if ! echo "$CHANGED_FILES" | grep -q "enclosure/stl/$BASE_NAME\.stl"; then
+              echo "::error file=$CAD::Missing corresponding STL file: enclosure/stl/$BASE_NAME.stl"
               ERROR=1
             fi
             

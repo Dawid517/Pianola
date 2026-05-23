@@ -25,7 +25,7 @@ What actually happened?
 
 **Environment**
  - Board Version: [e.g. v1.0]
- - Toolchain/IDE: [e.g. PlatformIO, STM32CubeIDE]
+ - Toolchain/IDE: [e.g. PlatformIO, STM32CubeIDE, CMake + GCC/Clang]
  - OS: [e.g. macOS, Windows]
 
 **Additional Context**

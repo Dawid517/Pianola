@@ -23,7 +23,7 @@ Software/firmware files and building instructions are located in `software/` dir
 
 ### Hardware
 
-Hardware files are located in `hardware/` directory. Open the `.PrjPcb` file in Altium Designer.
+Hardware files are located in `hardware/` directory. Open the `.kicad_pro` file in KiCad.
 
 ## Contributing
 

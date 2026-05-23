@@ -1,10 +1,10 @@
 # Hardware
 
-This directory contains the Altium Designer project files.
+This directory contains the KiCad project files.
 
 ## Structure
-- `Altium/`: PCB project, schematics, and layout files.
+- `KiCad/`: PCB project, schematics, and layout files.
 - `Outputs/`: Gerbers, BOM, and assembly drawings.
 
 ## Git LFS
-Since Altium files (`.PcbDoc`, `.SchDoc`, etc.) are binary, it is highly recommended to use [Git LFS](https://git-lfs.com/) to track them. This keeps the repository size manageable as the project evolves.
+Use [Git LFS](https://git-lfs.com/) to track large binary assets (e.g., 3D models) to keep the repository size manageable.
